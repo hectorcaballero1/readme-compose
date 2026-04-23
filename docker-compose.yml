@@ -1,0 +1,59 @@
+services:
+  ms1-users:
+    image: hectorcaballero/readme-users:latest
+    container_name: readme_ms1
+    ports:
+      - "8001:8001"
+    environment:
+      PORT: 8001
+      JWT_SECRET: ${JWT_SECRET}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ms1_users
+    restart: unless-stopped
+
+  ms2-books:
+    image: hectorcaballero/readme-books:latest
+    container_name: readme_ms2
+    ports:
+      - "8002:8002"
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ms2_books
+    restart: unless-stopped
+
+  ms3-reviews:
+    image: hectorcaballero/readme-reviews:latest
+    container_name: readme_ms3
+    ports:
+      - "8003:8003"
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      MONGO_URL: ${MONGO_URL}
+      PORT: 8003
+    restart: unless-stopped
+
+  ms4-orchestrator:
+    image: hectorcaballero/readme-orchestrator:latest
+    container_name: readme_ms4
+    ports:
+      - "8004:8004"
+    environment:
+      PORT: 8004
+      JWT_SECRET: ${JWT_SECRET}
+      MS1_URL: http://ms1-users:8001
+      MS2_URL: http://ms2-books:8002
+      MS3_URL: http://ms3-reviews:8003
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      EMAIL_FROM: ${EMAIL_FROM}
+    depends_on:
+      - ms1-users
+      - ms2-books
+      - ms3-reviews
+    restart: unless-stopped
