@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
 
   ms2-books:
-    image: kenkorita/readme-books:latest
+    image: hectorcaballero/readme-books:latest
     container_name: readme_ms2
     ports:
       - "8002:8002"
@@ -39,7 +39,7 @@ services:
     restart: unless-stopped
 
   ms3-reviews:
-    image: kenkorita/readme-reviews:latest
+    image: hectorcaballero/readme-reviews:latest
     container_name: readme_ms3
     ports:
       - "8003:8003"
