@@ -13,6 +13,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ms1_users
       ADMIN_KEY: ${ADMIN_KEY}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_REGION: ${AWS_REGION}
@@ -32,6 +33,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ms2_books
       ADMIN_KEY: ${ADMIN_KEY}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       AWS_REGION: ${AWS_REGION}
@@ -48,6 +50,7 @@ services:
       MONGO_URL: ${MONGO_URL}
       PORT: 8003
       ADMIN_KEY: ${ADMIN_KEY}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
     restart: unless-stopped
 
   ms4-orchestrator:
@@ -63,6 +66,7 @@ services:
       MS3_URL: http://ms3-reviews:8003
       RESEND_API_KEY: ${RESEND_API_KEY}
       EMAIL_FROM: ${EMAIL_FROM}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
     depends_on:
       - ms1-users
       - ms2-books

@@ -254,9 +254,12 @@
             "url": { "raw": "{{base_ms2}}/api/books", "host": ["{{base_ms2}}"], "path": ["api","books"] }
           },
           "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Lista de libros', () => {",
+            "pm.test('Lista de libros paginada', () => {",
             "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
+            "  const r = pm.response.json();",
+            "  pm.expect(r.data).to.be.an('array').that.is.not.empty;",
+            "  pm.expect(r).to.have.property('total');",
+            "  pm.expect(r).to.have.property('totalPages');",
             "});"
           ]}}]
         },
@@ -365,7 +368,7 @@
           },
           "event": [{ "listen": "test", "script": { "exec": [
             "pm.test('Solicitud pendiente de María', () => {",
-            "  const list = pm.response.json();",
+            "  const list = pm.response.json().data;",
             "  pm.expect(list).to.be.an('array').that.is.not.empty;",
             "  pm.expect(list[0].status).to.equal('pendiente');",
             "});"
