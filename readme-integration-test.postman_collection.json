@@ -21,7 +21,8 @@
     { "key": "solicitud_rechazo_id", "value": "" },
     { "key": "solicitud_cancelacion_id", "value": "" },
     { "key": "solicitud_maria_masivo_id", "value": "" },
-    { "key": "solicitud_pedro_masivo_id", "value": "" }
+    { "key": "solicitud_pedro_masivo_id", "value": "" },
+    { "key": "admin_key", "value": "" }
   ],
   "item": [
     {
@@ -157,6 +158,22 @@
             "  pm.expect(pm.response.json().data).to.be.an('array').that.is.not.empty;",
             "});"
           ]}}]
+        },
+        {
+          "name": "1.9 Admin export",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-Admin-Key", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms1}}/api/admin/export", "host": ["{{base_ms1}}"], "path": ["api","admin","export"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y contiene users y zones', () => {",
+            "  pm.response.to.have.status(200);",
+            "  const d = pm.response.json();",
+            "  pm.expect(d).to.have.property('users');",
+            "  pm.expect(d).to.have.property('zones');",
+            "});"
+          ]}}]
         }
       ]
     },
@@ -257,6 +274,23 @@
             "pm.test('Carlos tiene al menos 2 libros', () => {",
             "  pm.response.to.have.status(200);",
             "  pm.expect(pm.response.json().length).to.be.at.least(2);",
+            "});"
+          ]}}]
+        },
+        {
+          "name": "2.7 Admin export",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-Admin-Key", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms2}}/api/admin/export", "host": ["{{base_ms2}}"], "path": ["api","admin","export"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y contiene books, categories y transactions', () => {",
+            "  pm.response.to.have.status(200);",
+            "  const d = pm.response.json();",
+            "  pm.expect(d).to.have.property('books');",
+            "  pm.expect(d).to.have.property('categories');",
+            "  pm.expect(d).to.have.property('transactions');",
             "});"
           ]}}]
         }
@@ -400,6 +434,17 @@
             "  pm.collectionVariables.set('transaction_id', String(list[0].id));",
             "});"
           ]}}]
+        },
+        {
+          "name": "3.10 Perfil del vendedor de Dune",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token_maria}}" }],
+            "url": { "raw": "{{base_ms4}}/api/orders/book/{{dune_id}}/seller-profile", "host": ["{{base_ms4}}"], "path": ["api","orders","book","{{dune_id}}","seller-profile"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y retorna perfil del vendedor', () => pm.response.to.have.status(200));"
+          ]}}]
         }
       ]
     },
@@ -470,6 +515,22 @@
             "  const s = pm.response.json();",
             "  pm.expect(s.average_rating).to.equal(5);",
             "  pm.expect(s.total_reviews).to.be.at.least(1);",
+            "});"
+          ]}}]
+        },
+        {
+          "name": "4.5 Admin export",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-Admin-Key", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms3}}/api/admin/export", "host": ["{{base_ms3}}"], "path": ["api","admin","export"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y contiene solicitudes y reviews', () => {",
+            "  pm.response.to.have.status(200);",
+            "  const d = pm.response.json();",
+            "  pm.expect(d).to.have.property('solicitudes');",
+            "  pm.expect(d).to.have.property('reviews');",
             "});"
           ]}}]
         }
