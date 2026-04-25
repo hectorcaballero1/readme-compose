@@ -12,6 +12,11 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ms1_users
+      ADMIN_KEY: ${ADMIN_KEY}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
     restart: unless-stopped
 
   ms2-books:
@@ -26,6 +31,11 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ms2_books
+      ADMIN_KEY: ${ADMIN_KEY}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
     restart: unless-stopped
 
   ms3-reviews:
@@ -37,6 +47,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       MONGO_URL: ${MONGO_URL}
       PORT: 8003
+      ADMIN_KEY: ${ADMIN_KEY}
     restart: unless-stopped
 
   ms4-orchestrator:
