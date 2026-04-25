@@ -1,0 +1,10 @@
+services:
+  seeder:
+    image: hectorcaballero/readme-seeder:latest
+    env_file: .env
+    networks:
+      - readme_net
+
+networks:
+  readme_net:
+    external: true
