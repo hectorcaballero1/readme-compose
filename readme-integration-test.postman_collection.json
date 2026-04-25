@@ -160,18 +160,30 @@
           ]}}]
         },
         {
-          "name": "1.9 Admin export",
+          "name": "1.9 Export users",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-Admin-Key", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms1}}/api/admin/export", "host": ["{{base_ms1}}"], "path": ["api","admin","export"] }
+            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms1}}/api/export/users", "host": ["{{base_ms1}}"], "path": ["api","export","users"] }
           },
           "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y contiene users y zones', () => {",
+            "pm.test('200 y retorna array de users', () => {",
             "  pm.response.to.have.status(200);",
-            "  const d = pm.response.json();",
-            "  pm.expect(d).to.have.property('users');",
-            "  pm.expect(d).to.have.property('zones');",
+            "  pm.expect(pm.response.json()).to.be.an('array');",
+            "});"
+          ]}}]
+        },
+        {
+          "name": "1.10 Export zones",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms1}}/api/export/zones", "host": ["{{base_ms1}}"], "path": ["api","export","zones"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y retorna array de zones', () => {",
+            "  pm.response.to.have.status(200);",
+            "  pm.expect(pm.response.json()).to.be.an('array');",
             "});"
           ]}}]
         }
@@ -278,19 +290,44 @@
           ]}}]
         },
         {
-          "name": "2.7 Admin export",
+          "name": "2.7 Export books",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-Admin-Key", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms2}}/api/admin/export", "host": ["{{base_ms2}}"], "path": ["api","admin","export"] }
+            "header": [{ "key": "X-API-KEY", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms2}}/api/export/books", "host": ["{{base_ms2}}"], "path": ["api","export","books"] }
           },
           "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y contiene books, categories y transactions', () => {",
+            "pm.test('200 y retorna array de books', () => {",
             "  pm.response.to.have.status(200);",
-            "  const d = pm.response.json();",
-            "  pm.expect(d).to.have.property('books');",
-            "  pm.expect(d).to.have.property('categories');",
-            "  pm.expect(d).to.have.property('transactions');",
+            "  pm.expect(pm.response.json()).to.be.an('array');",
+            "});"
+          ]}}]
+        },
+        {
+          "name": "2.8 Export categories",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-API-KEY", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms2}}/api/export/categories", "host": ["{{base_ms2}}"], "path": ["api","export","categories"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y retorna array de categories', () => {",
+            "  pm.response.to.have.status(200);",
+            "  pm.expect(pm.response.json()).to.be.an('array');",
+            "});"
+          ]}}]
+        },
+        {
+          "name": "2.9 Export transactions",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-API-KEY", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms2}}/api/export/transactions", "host": ["{{base_ms2}}"], "path": ["api","export","transactions"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y retorna array de transactions', () => {",
+            "  pm.response.to.have.status(200);",
+            "  pm.expect(pm.response.json()).to.be.an('array');",
             "});"
           ]}}]
         }
@@ -519,18 +556,30 @@
           ]}}]
         },
         {
-          "name": "4.5 Admin export",
+          "name": "4.5 Export reviews",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-Admin-Key", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms3}}/api/admin/export", "host": ["{{base_ms3}}"], "path": ["api","admin","export"] }
+            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms3}}/api/export/reviews", "host": ["{{base_ms3}}"], "path": ["api","export","reviews"] }
           },
           "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y contiene solicitudes y reviews', () => {",
+            "pm.test('200 y retorna array de reviews', () => {",
             "  pm.response.to.have.status(200);",
-            "  const d = pm.response.json();",
-            "  pm.expect(d).to.have.property('solicitudes');",
-            "  pm.expect(d).to.have.property('reviews');",
+            "  pm.expect(pm.response.json()).to.be.an('array');",
+            "});"
+          ]}}]
+        },
+        {
+          "name": "4.6 Export solicitudes",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
+            "url": { "raw": "{{base_ms3}}/api/export/solicitudes", "host": ["{{base_ms3}}"], "path": ["api","export","solicitudes"] }
+          },
+          "event": [{ "listen": "test", "script": { "exec": [
+            "pm.test('200 y retorna array de solicitudes', () => {",
+            "  pm.response.to.have.status(200);",
+            "  pm.expect(pm.response.json()).to.be.an('array');",
             "});"
           ]}}]
         }
