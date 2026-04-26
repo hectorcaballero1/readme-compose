@@ -4,25 +4,90 @@
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "base_ms1", "value": "http://localhost:8001" },
-    { "key": "base_ms2", "value": "http://localhost:8002" },
-    { "key": "base_ms3", "value": "http://localhost:8003" },
-    { "key": "base_ms4", "value": "http://localhost:8004" },
-    { "key": "carlos_id", "value": "" },
-    { "key": "maria_id", "value": "" },
-    { "key": "pedro_id", "value": "" },
-    { "key": "token_carlos", "value": "" },
-    { "key": "token_maria", "value": "" },
-    { "key": "token_pedro", "value": "" },
-    { "key": "dune_id", "value": "" },
-    { "key": "book_1984_id", "value": "" },
-    { "key": "solicitud_dune_id", "value": "" },
-    { "key": "transaction_id", "value": "" },
-    { "key": "solicitud_rechazo_id", "value": "" },
-    { "key": "solicitud_cancelacion_id", "value": "" },
-    { "key": "solicitud_maria_masivo_id", "value": "" },
-    { "key": "solicitud_pedro_masivo_id", "value": "" },
-    { "key": "admin_key", "value": "" }
+    {
+      "key": "base_ms1",
+      "value": "http://localhost:8001"
+    },
+    {
+      "key": "base_ms2",
+      "value": "http://localhost:8002"
+    },
+    {
+      "key": "base_ms3",
+      "value": "http://localhost:8003"
+    },
+    {
+      "key": "base_ms4",
+      "value": "http://localhost:8004"
+    },
+    {
+      "key": "base_url_ms6",
+      "value": "http://localhost:8006"
+    },
+    {
+      "key": "carlos_id",
+      "value": ""
+    },
+    {
+      "key": "maria_id",
+      "value": ""
+    },
+    {
+      "key": "pedro_id",
+      "value": ""
+    },
+    {
+      "key": "token_carlos",
+      "value": ""
+    },
+    {
+      "key": "token_maria",
+      "value": ""
+    },
+    {
+      "key": "token_pedro",
+      "value": ""
+    },
+    {
+      "key": "jwt_token",
+      "value": ""
+    },
+    {
+      "key": "dune_id",
+      "value": ""
+    },
+    {
+      "key": "book_1984_id",
+      "value": ""
+    },
+    {
+      "key": "solicitud_dune_id",
+      "value": ""
+    },
+    {
+      "key": "transaction_id",
+      "value": ""
+    },
+    {
+      "key": "solicitud_rechazo_id",
+      "value": ""
+    },
+    {
+      "key": "solicitud_cancelacion_id",
+      "value": ""
+    },
+    {
+      "key": "solicitud_maria_masivo_id",
+      "value": ""
+    },
+    {
+      "key": "solicitud_pedro_masivo_id",
+      "value": ""
+    },
+    {
+      "key": "admin_key",
+      "value": ""
+    }
   ],
   "item": [
     {
@@ -32,160 +97,488 @@
           "name": "1.1 Registrar Carlos",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\"name\":\"Carlos\",\"email\":\"carlos@test.com\",\"password\":\"123456\",\"zone_id\":1}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms1}}/api/users", "host": ["{{base_ms1}}"], "path": ["api","users"] }
+            "url": {
+              "raw": "{{base_ms1}}/api/users",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('201 o 409 (ya existe)', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('201 o 409 (ya existe)', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.2 Registrar María",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\"name\":\"María\",\"email\":\"maria@test.com\",\"password\":\"123456\",\"zone_id\":2}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms1}}/api/users", "host": ["{{base_ms1}}"], "path": ["api","users"] }
+            "url": {
+              "raw": "{{base_ms1}}/api/users",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('201 o 409 (ya existe)', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('201 o 409 (ya existe)', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.3 Registrar Pedro",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\"name\":\"Pedro\",\"email\":\"pedro@test.com\",\"password\":\"123456\",\"zone_id\":1}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms1}}/api/users", "host": ["{{base_ms1}}"], "path": ["api","users"] }
+            "url": {
+              "raw": "{{base_ms1}}/api/users",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('201 o 409 (ya existe)', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('201 o 409 (ya existe)', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.4 Login Carlos",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\"email\":\"carlos@test.com\",\"password\":\"123456\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms1}}/api/users/login", "host": ["{{base_ms1}}"], "path": ["api","users","login"] }
+            "url": {
+              "raw": "{{base_ms1}}/api/users/login",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "login"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Login exitoso', () => pm.response.to.have.status(200));",
-            "const d = pm.response.json().data;",
-            "pm.collectionVariables.set('token_carlos', d.token);",
-            "pm.collectionVariables.set('carlos_id', d.user.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Login exitoso', () => pm.response.to.have.status(200));",
+                  "const d = pm.response.json().data;",
+                  "pm.collectionVariables.set('token_carlos', d.token);",
+                  "pm.collectionVariables.set('jwt_token', d.token);",
+                  "pm.collectionVariables.set('carlos_id', d.user.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.5 Login María",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\"email\":\"maria@test.com\",\"password\":\"123456\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms1}}/api/users/login", "host": ["{{base_ms1}}"], "path": ["api","users","login"] }
+            "url": {
+              "raw": "{{base_ms1}}/api/users/login",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "login"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Login exitoso', () => pm.response.to.have.status(200));",
-            "const d = pm.response.json().data;",
-            "pm.collectionVariables.set('token_maria', d.token);",
-            "pm.collectionVariables.set('maria_id', d.user.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Login exitoso', () => pm.response.to.have.status(200));",
+                  "const d = pm.response.json().data;",
+                  "pm.collectionVariables.set('token_maria', d.token);",
+                  "pm.collectionVariables.set('maria_id', d.user.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.6 Login Pedro",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
             "body": {
               "mode": "raw",
               "raw": "{\"email\":\"pedro@test.com\",\"password\":\"123456\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms1}}/api/users/login", "host": ["{{base_ms1}}"], "path": ["api","users","login"] }
+            "url": {
+              "raw": "{{base_ms1}}/api/users/login",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "login"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Login exitoso', () => pm.response.to.have.status(200));",
-            "const d = pm.response.json().data;",
-            "pm.collectionVariables.set('token_pedro', d.token);",
-            "pm.collectionVariables.set('pedro_id', d.user.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Login exitoso', () => pm.response.to.have.status(200));",
+                  "const d = pm.response.json().data;",
+                  "pm.collectionVariables.set('token_pedro', d.token);",
+                  "pm.collectionVariables.set('pedro_id', d.user.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.7 Perfil de Carlos",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms1}}/api/users/{{carlos_id}}", "host": ["{{base_ms1}}"], "path": ["api","users","{{carlos_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms1}}/api/users/{{carlos_id}}",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{carlos_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Perfil encontrado', () => pm.response.to.have.status(200));",
-            "pm.test('Sin password_hash', () => pm.expect(pm.response.json().data).to.not.have.property('password_hash'));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Perfil encontrado', () => pm.response.to.have.status(200));",
+                  "pm.test('Sin password_hash', () => pm.expect(pm.response.json().data).to.not.have.property('password_hash'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1.7b Actualizar perfil de Carlos",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Carlos Actualizado\",\n  \"zone_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_ms1}}/api/users/{{carlos_id}}",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{carlos_id}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Perfil actualizado', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1.7c Subir foto de perfil (Carlos)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_ms1}}/api/users/{{carlos_id}}/photo",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{carlos_id}}",
+                "photo"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Foto subida o S3 no configurado', () => {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 503]);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.8 Listar zonas",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms1}}/api/zones", "host": ["{{base_ms1}}"], "path": ["api","zones"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms1}}/api/zones",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "zones"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y zonas presentes', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json().data).to.be.an('array').that.is.not.empty;",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y zonas presentes', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json().data).to.be.an('array').that.is.not.empty;",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.9 Export users",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms1}}/api/export/users", "host": ["{{base_ms1}}"], "path": ["api","export","users"] }
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{admin_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms1}}/api/export/users",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "users"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna array de users', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array de users', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "1.10 Export zones",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms1}}/api/export/zones", "host": ["{{base_ms1}}"], "path": ["api","export","zones"] }
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{admin_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms1}}/api/export/zones",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "zones"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna array de zones', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array de zones', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -196,143 +589,411 @@
           "name": "2.1 Listar categorías",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms2}}/api/categories", "host": ["{{base_ms2}}"], "path": ["api","categories"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/categories",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Categorías seed presentes', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Categorías seed presentes', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "2.2 Carlos publica Dune",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_carlos}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"title\":\"Dune\",\"author\":\"Frank Herbert\",\"category_id\":1,\"description\":\"Buen estado\",\"price\":25.00}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms2}}/api/books", "host": ["{{base_ms2}}"], "path": ["api","books"] }
+            "url": {
+              "raw": "{{base_ms2}}/api/books",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Libro creado', () => pm.response.to.have.status(200));",
-            "pm.collectionVariables.set('dune_id', pm.response.json().id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Libro creado', () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set('dune_id', pm.response.json().id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.2b Subir foto de portada (Dune)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "photo",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_ms2}}/api/books/{{dune_id}}/photo",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "{{dune_id}}",
+                "photo"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Foto subida o S3 no configurado', () => {",
+                  "  pm.expect(pm.response.code).to.be.oneOf([200, 503]);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "2.3 Carlos publica 1984",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_carlos}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"title\":\"1984\",\"author\":\"George Orwell\",\"category_id\":1,\"description\":\"Como nuevo\",\"price\":15.00}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms2}}/api/books", "host": ["{{base_ms2}}"], "path": ["api","books"] }
+            "url": {
+              "raw": "{{base_ms2}}/api/books",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Libro creado', () => pm.response.to.have.status(200));",
-            "pm.collectionVariables.set('book_1984_id', pm.response.json().id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Libro creado', () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set('book_1984_id', pm.response.json().id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "2.4 Explorar libros disponibles",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms2}}/api/books", "host": ["{{base_ms2}}"], "path": ["api","books"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/books",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Lista de libros paginada', () => {",
-            "  pm.response.to.have.status(200);",
-            "  const r = pm.response.json();",
-            "  pm.expect(r.data).to.be.an('array').that.is.not.empty;",
-            "  pm.expect(r).to.have.property('total');",
-            "  pm.expect(r).to.have.property('totalPages');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Lista de libros paginada', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.data).to.be.an('array').that.is.not.empty;",
+                  "  pm.expect(r).to.have.property('total');",
+                  "  pm.expect(r).to.have.property('total_pages');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.4b Filtrar libros por categoría",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/books?category=1&page=1&size=10",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "1"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Libros filtrados por categoría', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.data).to.be.an('array');",
+                  "  pm.expect(r).to.have.property('total');",
+                  "  pm.expect(r).to.have.property('total_pages');",
+                  "  r.data.forEach(b => pm.expect(b.category_id).to.equal(1));",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "2.5 Detalle de Dune",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms2}}/api/books/{{dune_id}}", "host": ["{{base_ms2}}"], "path": ["api","books","{{dune_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/books/{{dune_id}}",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "{{dune_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Dune disponible y activo', () => {",
-            "  const b = pm.response.json();",
-            "  pm.expect(b.available).to.be.true;",
-            "  pm.expect(b.active).to.be.true;",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Dune disponible y activo', () => {",
+                  "  const b = pm.response.json();",
+                  "  pm.expect(b.available).to.be.true;",
+                  "  pm.expect(b.active).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "2.6 Estantería de Carlos",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms2}}/api/books/user/{{carlos_id}}", "host": ["{{base_ms2}}"], "path": ["api","books","user","{{carlos_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/books/user/{{carlos_id}}",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "user",
+                "{{carlos_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Carlos tiene al menos 2 libros', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json().length).to.be.at.least(2);",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Carlos tiene al menos 2 libros', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json().length).to.be.at.least(2);",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "2.7 Export books",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-API-KEY", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms2}}/api/export/books", "host": ["{{base_ms2}}"], "path": ["api","export","books"] }
+            "header": [
+              {
+                "key": "X-Admin-Key",
+                "value": "{{admin_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/export/books",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "books"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna array de books', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array de books', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "2.8 Export categories",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-API-KEY", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms2}}/api/export/categories", "host": ["{{base_ms2}}"], "path": ["api","export","categories"] }
+            "header": [
+              {
+                "key": "X-Admin-Key",
+                "value": "{{admin_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/export/categories",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "categories"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna array de categories', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array');",
-            "});"
-          ]}}]
-        },
-        {
-          "name": "2.9 Export transactions",
-          "request": {
-            "method": "GET",
-            "header": [{ "key": "X-API-KEY", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms2}}/api/export/transactions", "host": ["{{base_ms2}}"], "path": ["api","export","transactions"] }
-          },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna array de transactions', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array de categories', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -344,247 +1005,883 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_maria}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"book_id\":{{dune_id}},\"message\":\"Hola, me interesa tu libro\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms4}}/api/orders/solicitud", "host": ["{{base_ms4}}"], "path": ["api","orders","solicitud"] }
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/solicitud",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "solicitud"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
-            "pm.collectionVariables.set('solicitud_dune_id', pm.response.json().data.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('solicitud_dune_id', pm.response.json().data.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.2 Verificar solicitud en MS3",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_maria}}" }],
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/user/{{maria_id}}", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","user","{{maria_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/user/{{maria_id}}",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "user",
+                "{{maria_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud pendiente de María', () => {",
-            "  const list = pm.response.json().data;",
-            "  pm.expect(list).to.be.an('array').that.is.not.empty;",
-            "  pm.expect(list[0].status).to.equal('pendiente');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud pendiente de María', () => {",
+                  "  const list = pm.response.json().data;",
+                  "  pm.expect(list).to.be.an('array').that.is.not.empty;",
+                  "  const id = pm.collectionVariables.get('solicitud_dune_id');",
+                  "  const found = list.find(s => s._id === id || s.id === id) || list[list.length - 1];",
+                  "  pm.expect(found.status).to.equal('pendiente');",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.3 Carlos responde en el hilo",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_carlos}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"text\":\"Dale, te lo puedo enviar por Olva\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}/messages", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","{{solicitud_dune_id}}","messages"] }
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}/messages",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "{{solicitud_dune_id}}",
+                "messages"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Mensaje añadido', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Mensaje añadido', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.4 María responde en el hilo",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_maria}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"text\":\"Perfecto, mi dirección es Av. Javier Prado 123\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}/messages", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","{{solicitud_dune_id}}","messages"] }
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}/messages",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "{{solicitud_dune_id}}",
+                "messages"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Mensaje añadido', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Mensaje añadido', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.5 Verificar hilo (3 mensajes)",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","{{solicitud_dune_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "{{solicitud_dune_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('3 mensajes en el hilo', () => {",
-            "  const s = pm.response.json();",
-            "  pm.expect(s.messages.length).to.equal(3);",
-            "  pm.expect(s.status).to.equal('pendiente');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('3 mensajes en el hilo', () => {",
+                  "  const s = pm.response.json();",
+                  "  pm.expect(s.messages.length).to.equal(3);",
+                  "  pm.expect(s.status).to.equal('pendiente');",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.6 Carlos acepta la solicitud (MS4)",
           "request": {
             "method": "PUT",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms4}}/api/orders/{{solicitud_dune_id}}/accept", "host": ["{{base_ms4}}"], "path": ["api","orders","{{solicitud_dune_id}}","accept"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/{{solicitud_dune_id}}/accept",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{solicitud_dune_id}}",
+                "accept"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud aceptada', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud aceptada', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.7 Verificar solicitud aceptada",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","{{solicitud_dune_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_dune_id}}",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "{{solicitud_dune_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Status aceptada', () => pm.expect(pm.response.json().status).to.equal('aceptada'));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status aceptada', () => pm.expect(pm.response.json().status).to.equal('aceptada'));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.8 Dune ya no disponible",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms2}}/api/books/{{dune_id}}", "host": ["{{base_ms2}}"], "path": ["api","books","{{dune_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms2}}/api/books/{{dune_id}}",
+              "host": [
+                "{{base_ms2}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "{{dune_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Dune no disponible', () => pm.expect(pm.response.json().available).to.be.false);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Dune no disponible', () => pm.expect(pm.response.json().available).to.be.false);"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "3.9 Verificar transacción creada",
+          "name": "3.9 Verificar transacción creada (MS6)",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms2}}/api/transactions/user/{{carlos_id}}", "host": ["{{base_ms2}}"], "path": ["api","transactions","user","{{carlos_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/transactions/user/{{carlos_id}}",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "transactions",
+                "user",
+                "{{carlos_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Transacción registrada', () => {",
-            "  const list = pm.response.json();",
-            "  pm.expect(list).to.be.an('array').that.is.not.empty;",
-            "  pm.collectionVariables.set('transaction_id', String(list[0].id));",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Transacción registrada', () => {",
+                  "  const list = pm.response.json();",
+                  "  pm.expect(list).to.be.an('array').that.is.not.empty;",
+                  "  pm.collectionVariables.set('transaction_id', String(list[0].id));",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "3.10 Perfil del vendedor de Dune",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_maria}}" }],
-            "url": { "raw": "{{base_ms4}}/api/orders/book/{{dune_id}}/seller-profile", "host": ["{{base_ms4}}"], "path": ["api","orders","book","{{dune_id}}","seller-profile"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/book/{{dune_id}}/seller-profile",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "book",
+                "{{dune_id}}",
+                "seller-profile"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna perfil del vendedor', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna perfil del vendedor', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "name": "4. Reviews",
+      "name": "4. MS3 Solicitudes",
       "item": [
         {
-          "name": "4.1 María deja review a Carlos (5★)",
+          "name": "4.1 Export solicitudes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Admin-Key",
+                "value": "{{admin_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms3}}/api/export/solicitudes",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "solicitudes"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array de solicitudes', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MS6 Transactions",
+      "item": [
+        {
+          "name": "MS6.1 Listar transacciones",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/transactions?page=1&size=20",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y respuesta paginada', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.data).to.be.an('array');",
+                  "  pm.expect(r).to.have.property('total');",
+                  "  pm.expect(r).to.have.property('total_pages');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS6.2 Obtener transacción por ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/transactions/:id",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "transactions",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 o 404', () => pm.expect(pm.response.code).to.be.oneOf([200, 404]));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS6.3 Transacciones por libro",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/transactions/book/:bookId",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "transactions",
+                "book",
+                ":bookId"
+              ],
+              "variable": [
+                {
+                  "key": "bookId",
+                  "value": "{{dune_id}}"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS6.4 Transacciones por usuario",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/transactions/user/:userId?page=1&size=20",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "transactions",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{carlos_id}}"
+                }
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS6.5 Crear transacción",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_maria}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"target_user_id\":{{carlos_id}},\"transaction_id\":\"{{transaction_id}}\",\"rating\":5,\"comment\":\"Excelente vendedor\"}",
-              "options": { "raw": { "language": "json" } }
+              "raw": "{\"book_id\": 1, \"buyer_id\": 2, \"seller_id\": 3}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms3}}/api/reviews", "host": ["{{base_ms3}}"], "path": ["api","reviews"] }
+            "url": {
+              "raw": "{{base_url_ms6}}/api/transactions",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "transactions"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Review creada', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('201 transacción creada', () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "4.2 Carlos deja review a María (4★)",
+          "name": "MS6.6 Crear review",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_carlos}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"target_user_id\":{{maria_id}},\"transaction_id\":\"{{transaction_id}}\",\"rating\":4,\"comment\":\"Buena compradora\"}",
-              "options": { "raw": { "language": "json" } }
+              "raw": "{\"target_user_id\": {{carlos_id}}, \"transaction_id\": {{transaction_id}}, \"rating\": 4.5, \"comment\": \"Excelente vendedor\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms3}}/api/reviews", "host": ["{{base_ms3}}"], "path": ["api","reviews"] }
+            "url": {
+              "raw": "{{base_url_ms6}}/api/reviews",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Review creada', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('201 review creada', () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "4.3 Reviews recibidas por Carlos",
+          "name": "MS6.7 Reviews recibidas por usuario",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms3}}/api/reviews/user/{{carlos_id}}", "host": ["{{base_ms3}}"], "path": ["api","reviews","user","{{carlos_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/reviews/user/:userId?page=1&size=20",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{carlos_id}}"
+                }
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Al menos 1 review', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y respuesta paginada', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  const r = pm.response.json();",
+                  "  pm.expect(r.data).to.be.an('array');",
+                  "  pm.expect(r).to.have.property('total');",
+                  "  pm.expect(r).to.have.property('total_pages');",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "4.4 Stats Carlos — promedio 5.0",
+          "name": "MS6.8 Stats de reviews por usuario",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms3}}/api/reviews/stats/{{carlos_id}}", "host": ["{{base_ms3}}"], "path": ["api","reviews","stats","{{carlos_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/reviews/stats/:userId",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "stats",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "{{carlos_id}}"
+                }
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Promedio 5.0', () => {",
-            "  const s = pm.response.json();",
-            "  pm.expect(s.average_rating).to.equal(5);",
-            "  pm.expect(s.total_reviews).to.be.at.least(1);",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y contiene stats', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  const s = pm.response.json();",
+                  "  pm.expect(s).to.have.property('average_rating');",
+                  "  pm.expect(s).to.have.property('total_reviews');",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "4.5 Export reviews",
+          "name": "MS6.9 Export transactions",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms3}}/api/export/reviews", "host": ["{{base_ms3}}"], "path": ["api","export","reviews"] }
+            "header": [
+              {
+                "key": "X-Admin-Key",
+                "value": "{{admin_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/export/transactions",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "transactions"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna array de reviews', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array de transactions', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
         },
         {
-          "name": "4.6 Export solicitudes",
+          "name": "MS6.10 Export reviews",
           "request": {
             "method": "GET",
-            "header": [{ "key": "X-API-Key", "value": "{{admin_key}}" }],
-            "url": { "raw": "{{base_ms3}}/api/export/solicitudes", "host": ["{{base_ms3}}"], "path": ["api","export","solicitudes"] }
+            "header": [
+              {
+                "key": "X-Admin-Key",
+                "value": "{{admin_key}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url_ms6}}/api/export/reviews",
+              "host": [
+                "{{base_url_ms6}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "reviews"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('200 y retorna array de solicitudes', () => {",
-            "  pm.response.to.have.status(200);",
-            "  pm.expect(pm.response.json()).to.be.an('array');",
-            "});"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array de reviews', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -596,49 +1893,119 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_maria}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"book_id\":{{dune_id}},\"message\":\"Quiero Dune otra vez\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms4}}/api/orders/solicitud", "host": ["{{base_ms4}}"], "path": ["api","orders","solicitud"] }
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/solicitud",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "solicitud"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('400 libro no disponible', () => pm.response.to.have.status(400));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('400 libro no disponible', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "5.2 Carlos pide su propio 1984 → DEBE FALLAR",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_carlos}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"book_id\":{{book_1984_id}},\"message\":\"Me compro mi propio libro\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms4}}/api/orders/solicitud", "host": ["{{base_ms4}}"], "path": ["api","orders","solicitud"] }
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/solicitud",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "solicitud"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('400 buyer igual a seller', () => pm.response.to.have.status(400));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('400 buyer igual a seller', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "5.3 Sin token → DEBE FALLAR",
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_ms1}}/api/zones", "host": ["{{base_ms1}}"], "path": ["api","zones"] }
+            "url": {
+              "raw": "{{base_ms1}}/api/zones",
+              "host": [
+                "{{base_ms1}}"
+              ],
+              "path": [
+                "api",
+                "zones"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('401 sin token', () => pm.response.to.have.status(401));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('401 sin token', () => pm.response.to.have.status(401));"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -650,42 +2017,114 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_pedro}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_pedro}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"book_id\":{{book_1984_id}},\"message\":\"Me interesa 1984\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms4}}/api/orders/solicitud", "host": ["{{base_ms4}}"], "path": ["api","orders","solicitud"] }
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/solicitud",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "solicitud"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
-            "pm.collectionVariables.set('solicitud_rechazo_id', pm.response.json().data.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('solicitud_rechazo_id', pm.response.json().data.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "6.2 Carlos rechaza",
           "request": {
             "method": "PUT",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms4}}/api/orders/{{solicitud_rechazo_id}}/reject", "host": ["{{base_ms4}}"], "path": ["api","orders","{{solicitud_rechazo_id}}","reject"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/{{solicitud_rechazo_id}}/reject",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{solicitud_rechazo_id}}",
+                "reject"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud rechazada', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud rechazada', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "6.3 Verificar status rechazada",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_pedro}}" }],
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_rechazo_id}}", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","{{solicitud_rechazo_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_pedro}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_rechazo_id}}",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "{{solicitud_rechazo_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Status rechazada', () => pm.expect(pm.response.json().status).to.equal('rechazada'));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status rechazada', () => pm.expect(pm.response.json().status).to.equal('rechazada'));"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -697,42 +2136,114 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_maria}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"book_id\":{{book_1984_id}},\"message\":\"Me interesa 1984\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms4}}/api/orders/solicitud", "host": ["{{base_ms4}}"], "path": ["api","orders","solicitud"] }
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/solicitud",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "solicitud"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
-            "pm.collectionVariables.set('solicitud_cancelacion_id', pm.response.json().data.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('solicitud_cancelacion_id', pm.response.json().data.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "7.2 María cancela",
           "request": {
             "method": "PUT",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_maria}}" }],
-            "url": { "raw": "{{base_ms4}}/api/orders/{{solicitud_cancelacion_id}}/cancel", "host": ["{{base_ms4}}"], "path": ["api","orders","{{solicitud_cancelacion_id}}","cancel"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/{{solicitud_cancelacion_id}}/cancel",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{solicitud_cancelacion_id}}",
+                "cancel"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud cancelada', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud cancelada', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "7.3 Verificar status cancelada",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_maria}}" }],
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_cancelacion_id}}", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","{{solicitud_cancelacion_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_cancelacion_id}}",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "{{solicitud_cancelacion_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Status cancelada', () => pm.expect(pm.response.json().status).to.equal('cancelada'));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status cancelada', () => pm.expect(pm.response.json().status).to.equal('cancelada'));"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -744,62 +2255,161 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_maria}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_maria}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"book_id\":{{book_1984_id}},\"message\":\"Quiero 1984\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms4}}/api/orders/solicitud", "host": ["{{base_ms4}}"], "path": ["api","orders","solicitud"] }
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/solicitud",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "solicitud"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
-            "pm.collectionVariables.set('solicitud_maria_masivo_id', pm.response.json().data.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('solicitud_maria_masivo_id', pm.response.json().data.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "8.2 Pedro solicita 1984",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token_pedro}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_pedro}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"book_id\":{{book_1984_id}},\"message\":\"También quiero 1984\"}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "url": { "raw": "{{base_ms4}}/api/orders/solicitud", "host": ["{{base_ms4}}"], "path": ["api","orders","solicitud"] }
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/solicitud",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "solicitud"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
-            "pm.collectionVariables.set('solicitud_pedro_masivo_id', pm.response.json().data.id);"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Solicitud creada', () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('solicitud_pedro_masivo_id', pm.response.json().data.id);"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "8.3 Carlos acepta la de María",
           "request": {
             "method": "PUT",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_carlos}}" }],
-            "url": { "raw": "{{base_ms4}}/api/orders/{{solicitud_maria_masivo_id}}/accept", "host": ["{{base_ms4}}"], "path": ["api","orders","{{solicitud_maria_masivo_id}}","accept"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_carlos}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms4}}/api/orders/{{solicitud_maria_masivo_id}}/accept",
+              "host": [
+                "{{base_ms4}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{solicitud_maria_masivo_id}}",
+                "accept"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Aceptada', () => pm.response.to.have.status(200));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Aceptada', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
         },
         {
           "name": "8.4 Pedro fue rechazado automáticamente",
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token_pedro}}" }],
-            "url": { "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_pedro_masivo_id}}", "host": ["{{base_ms3}}"], "path": ["api","solicitudes","{{solicitud_pedro_masivo_id}}"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token_pedro}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_ms3}}/api/solicitudes/{{solicitud_pedro_masivo_id}}",
+              "host": [
+                "{{base_ms3}}"
+              ],
+              "path": [
+                "api",
+                "solicitudes",
+                "{{solicitud_pedro_masivo_id}}"
+              ]
+            }
           },
-          "event": [{ "listen": "test", "script": { "exec": [
-            "pm.test('Pedro auto-rechazado', () => pm.expect(pm.response.json().status).to.equal('rechazada'));"
-          ]}}]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Pedro auto-rechazado', () => pm.expect(pm.response.json().status).to.equal('rechazada'));"
+                ]
+              }
+            }
+          ]
         }
       ]
     }

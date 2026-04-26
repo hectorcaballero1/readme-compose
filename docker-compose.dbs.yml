@@ -53,10 +53,30 @@ services:
     networks:
       - readme_net
 
+  postgres-ms6:
+    image: postgres:16
+    container_name: readme_postgres_ms6
+    environment:
+      POSTGRES_USER: ${DB_USER:-readme}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-readme123}
+      POSTGRES_DB: ms6_transactions
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata_ms6:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-readme} -d ms6_transactions"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - readme_net
+
 volumes:
   pgdata:
   mysqldata:
   mongodata:
+  pgdata_ms6:
 
 networks:
   readme_net:

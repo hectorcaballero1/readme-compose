@@ -40,8 +40,8 @@ services:
       AWS_S3_BUCKET: ${AWS_S3_BUCKET}
     restart: unless-stopped
 
-  ms3-reviews:
-    image: hectorcaballero/readme-reviews:latest
+  ms3-solicitudes:
+    image: hectorcaballero/readme-solicitudes:latest
     container_name: readme_ms3
     ports:
       - "8003:8003"
@@ -49,6 +49,23 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       MONGO_URL: ${MONGO_URL}
       PORT: 8003
+      ADMIN_KEY: ${ADMIN_KEY}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+    restart: unless-stopped
+
+  ms6-transactions:
+    image: hectorcaballero/readme-transactions:latest
+    container_name: readme_ms6
+    ports:
+      - "8006:8006"
+    environment:
+      PORT: 8006
+      JWT_SECRET: ${JWT_SECRET}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: 5434
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ms6_transactions
       ADMIN_KEY: ${ADMIN_KEY}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
     restart: unless-stopped
@@ -63,12 +80,14 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       MS1_URL: http://ms1-users:8001
       MS2_URL: http://ms2-books:8002
-      MS3_URL: http://ms3-reviews:8003
+      MS3_URL: http://ms3-solicitudes:8003
+      MS6_URL: http://ms6-transactions:8006
       RESEND_API_KEY: ${RESEND_API_KEY}
       EMAIL_FROM: ${EMAIL_FROM}
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
     depends_on:
       - ms1-users
       - ms2-books
-      - ms3-reviews
+      - ms3-solicitudes
+      - ms6-transactions
     restart: unless-stopped
