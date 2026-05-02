@@ -1,0 +1,424 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "ReadMe: 2 App Servers detras de ALB + 1 DB Server + 1 VM Ingesta"
+
+Parameters:
+  AMI:
+    Type: String
+    Default: "ami-08d434e92c0cfa0c0"
+    Description: "ID de AMI (Ubuntu con Docker preinstalado)"
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: "vockey"
+    Description: "KeyPair para acceso SSH"
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: "VPC donde desplegar los recursos"
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet::Id
+    Description: "Subnet publica 1"
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet::Id
+    Description: "Subnet publica 2"
+
+Resources:
+
+  LoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "ALB: HTTP desde internet"
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: "0.0.0.0/0"
+
+  AppServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "App Servers: puertos MS desde ALB, SSH desde internet"
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 8001
+          ToPort: 8001
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 8002
+          ToPort: 8002
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 8003
+          ToPort: 8003
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 8004
+          ToPort: 8004
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 8006
+          ToPort: 8006
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: "0.0.0.0/0"
+
+  DbServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "DB Server: BDs accesibles desde App Servers, SSH desde internet"
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: "0.0.0.0/0"
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          SourceSecurityGroupId: !Ref AppServerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 5434
+          ToPort: 5434
+          SourceSecurityGroupId: !Ref AppServerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !Ref AppServerSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 27017
+          ToPort: 27017
+          SourceSecurityGroupId: !Ref AppServerSecurityGroup
+
+  AppServer1:
+    Type: AWS::EC2::Instance
+    DependsOn: DbServer
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "readme-app-1"
+      ImageId: !Ref AMI
+      InstanceType: t3.medium
+      KeyName: !Ref KeyName
+      IamInstanceProfile: "LabInstanceProfile"
+      SecurityGroupIds:
+        - !Ref AppServerSecurityGroup
+      SubnetId: !Ref PublicSubnet1
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: "30"
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          apt-get update -y
+          apt-get install -y docker.io docker-compose-plugin git
+          systemctl start docker
+          systemctl enable docker
+          usermod -aG docker ubuntu
+
+  AppServer2:
+    Type: AWS::EC2::Instance
+    DependsOn: DbServer
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "readme-app-2"
+      ImageId: !Ref AMI
+      InstanceType: t3.medium
+      KeyName: !Ref KeyName
+      IamInstanceProfile: "LabInstanceProfile"
+      SecurityGroupIds:
+        - !Ref AppServerSecurityGroup
+      SubnetId: !Ref PublicSubnet2
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: "30"
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          apt-get update -y
+          apt-get install -y docker.io docker-compose-plugin git
+          systemctl start docker
+          systemctl enable docker
+          usermod -aG docker ubuntu
+
+  DbServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "readme-db"
+      ImageId: !Ref AMI
+      InstanceType: t3.medium
+      KeyName: !Ref KeyName
+      IamInstanceProfile: "LabInstanceProfile"
+      SecurityGroupIds:
+        - !Ref DbServerSecurityGroup
+      SubnetId: !Ref PublicSubnet1
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: "30"
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          apt-get update -y
+          apt-get install -y docker.io docker-compose-plugin git
+          systemctl start docker
+          systemctl enable docker
+          usermod -aG docker ubuntu
+
+  IngestaServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "readme-ingesta"
+      ImageId: !Ref AMI
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      IamInstanceProfile: "LabInstanceProfile"
+      SecurityGroupIds:
+        - !Ref AppServerSecurityGroup
+      SubnetId: !Ref PublicSubnet1
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: "20"
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          apt-get update -y
+          apt-get install -y docker.io docker-compose-plugin git
+          systemctl start docker
+          systemctl enable docker
+          usermod -aG docker ubuntu
+
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: "readme-alb"
+      Scheme: "internet-facing"
+      Type: "application"
+      IpAddressType: "ipv4"
+      SecurityGroups:
+        - !Ref LoadBalancerSecurityGroup
+      Subnets:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+
+  MS1TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: "readme-ms1-tg"
+      VpcId: !Ref VpcId
+      Protocol: HTTP
+      Port: 8001
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: "8001"
+      HealthCheckPath: "/health"
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: "200"
+      Targets:
+        - Id: !Ref AppServer1
+          Port: 8001
+        - Id: !Ref AppServer2
+          Port: 8001
+
+  MS2TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: "readme-ms2-tg"
+      VpcId: !Ref VpcId
+      Protocol: HTTP
+      Port: 8002
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: "8002"
+      HealthCheckPath: "/health"
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: "200"
+      Targets:
+        - Id: !Ref AppServer1
+          Port: 8002
+        - Id: !Ref AppServer2
+          Port: 8002
+
+  MS3TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: "readme-ms3-tg"
+      VpcId: !Ref VpcId
+      Protocol: HTTP
+      Port: 8003
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: "8003"
+      HealthCheckPath: "/health"
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: "200"
+      Targets:
+        - Id: !Ref AppServer1
+          Port: 8003
+        - Id: !Ref AppServer2
+          Port: 8003
+
+  MS4TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: "readme-ms4-tg"
+      VpcId: !Ref VpcId
+      Protocol: HTTP
+      Port: 8004
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: "8004"
+      HealthCheckPath: "/health"
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: "200"
+      Targets:
+        - Id: !Ref AppServer1
+          Port: 8004
+        - Id: !Ref AppServer2
+          Port: 8004
+
+  MS6TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: "readme-ms6-tg"
+      VpcId: !Ref VpcId
+      Protocol: HTTP
+      Port: 8006
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: "8006"
+      HealthCheckPath: "/health"
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: "200"
+      Targets:
+        - Id: !Ref AppServer1
+          Port: 8006
+        - Id: !Ref AppServer2
+          Port: 8006
+
+  HttpListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref ApplicationLoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref MS1TargetGroup
+
+  MS1ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn: !Ref HttpListener
+      Priority: 10
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/api/users*"
+            - "/api/zones*"
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref MS1TargetGroup
+
+  MS2ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn: !Ref HttpListener
+      Priority: 20
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/api/books*"
+            - "/api/categories*"
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref MS2TargetGroup
+
+  MS3ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn: !Ref HttpListener
+      Priority: 30
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/api/solicitudes*"
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref MS3TargetGroup
+
+  MS4ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn: !Ref HttpListener
+      Priority: 40
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/api/orders*"
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref MS4TargetGroup
+
+  MS6ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn: !Ref HttpListener
+      Priority: 50
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/api/transactions*"
+            - "/api/reviews*"
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref MS6TargetGroup
+
+Outputs:
+  LoadBalancerDNS:
+    Description: "DNS del ALB — usar en API Gateway y frontend"
+    Value: !GetAtt ApplicationLoadBalancer.DNSName
+  AppServer1PublicIP:
+    Description: "IP publica App Server 1"
+    Value: !GetAtt AppServer1.PublicIp
+  AppServer2PublicIP:
+    Description: "IP publica App Server 2"
+    Value: !GetAtt AppServer2.PublicIp
+  DbServerPublicIP:
+    Description: "IP publica DB Server (SSH)"
+    Value: !GetAtt DbServer.PublicIp
+  DbServerPrivateIP:
+    Description: "IP privada DB Server — usar en DB_HOST del .env"
+    Value: !GetAtt DbServer.PrivateIp
+  IngestaServerPublicIP:
+    Description: "IP publica VM Ingesta (SSH)"
+    Value: !GetAtt IngestaServer.PublicIp
