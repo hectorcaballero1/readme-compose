@@ -846,7 +846,7 @@
                   "  pm.expect(r.data).to.be.an('array');",
                   "  pm.expect(r).to.have.property('total');",
                   "  pm.expect(r).to.have.property('total_pages');",
-                  "  r.data.forEach(b => pm.expect(b.category_id).to.equal(1));",
+                  "  r.data.forEach(b => pm.expect(b.category.id).to.equal(1));",
                   "});"
                 ]
               }
