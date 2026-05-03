@@ -87,6 +87,10 @@
     {
       "key": "admin_key",
       "value": ""
+    },
+    {
+      "key": "base_ms5",
+      "value": "http://localhost:8005"
     }
   ],
   "item": [
@@ -2240,6 +2244,220 @@
               "script": {
                 "exec": [
                   "pm.test('Status cancelada', () => pm.expect(pm.response.json().status).to.equal('cancelada'));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "MS5 Analytics",
+      "item": [
+        {
+          "name": "MS5.1 Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_ms5}}/health",
+              "host": ["{{base_ms5}}"],
+              "path": ["health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 ok', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json().status).to.equal('ok');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS5.2 Categorías demanda",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_ms5}}/api/analytics/categorias-demanda",
+              "host": ["{{base_ms5}}"],
+              "path": ["api", "analytics", "categorias-demanda"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS5.3 Usuarios activos por zona",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_ms5}}/api/analytics/usuarios-activos-zona",
+              "host": ["{{base_ms5}}"],
+              "path": ["api", "analytics", "usuarios-activos-zona"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS5.4 Top vendedores por categoría",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_ms5}}/api/analytics/top-vendedores-categoria",
+              "host": ["{{base_ms5}}"],
+              "path": ["api", "analytics", "top-vendedores-categoria"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS5.5 Tasa de éxito por zona",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_ms5}}/api/analytics/tasa-exito-zona",
+              "host": ["{{base_ms5}}"],
+              "path": ["api", "analytics", "tasa-exito-zona"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS5.6 Vista zonas actividad",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_ms5}}/api/analytics/zonas-actividad",
+              "host": ["{{base_ms5}}"],
+              "path": ["api", "analytics", "zonas-actividad"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS5.7 Vista categorías demanda",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_ms5}}/api/analytics/categorias-vista",
+              "host": ["{{base_ms5}}"],
+              "path": ["api", "analytics", "categorias-vista"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('200 y retorna array', () => {",
+                  "  pm.response.to.have.status(200);",
+                  "  pm.expect(pm.response.json()).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MS5.8 Sin token → DEBE FALLAR",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_ms5}}/api/analytics/categorias-demanda",
+              "host": ["{{base_ms5}}"],
+              "path": ["api", "analytics", "categorias-demanda"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('401 sin token', () => pm.response.to.have.status(401));"
                 ]
               }
             }

@@ -91,3 +91,13 @@ services:
       - ms3-solicitudes
       - ms6-transactions
     restart: unless-stopped
+
+  ms5-analytics:
+    image: hectorcaballero/readme-analytics:latest
+    container_name: readme_ms5
+    ports:
+      - "8005:8005"
+    env_file: .env
+    environment:
+      ATHENA_DATABASE: readme_db
+    restart: unless-stopped

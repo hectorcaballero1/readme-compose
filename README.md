@@ -13,6 +13,10 @@ Editar `.env`:
 ## Levantar
 
 ```bash
+# En la VM de BDs, detener MySQL del sistema antes de levantar el contenedor
+sudo systemctl stop mysql
+sudo systemctl disable mysql
+
 # BDs (ejecutar en VM de BDs)
 docker compose -f docker-compose.dbs.yml up -d
 
