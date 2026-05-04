@@ -10,6 +10,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U readme -d ms1_users"]
       interval: 10s
@@ -30,6 +31,7 @@ services:
       - "3306:3306"
     volumes:
       - mysqldata:/var/lib/mysql
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -45,6 +47,7 @@ services:
       - "27017:27017"
     volumes:
       - mongodata:/data/db
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -64,6 +67,7 @@ services:
       - "5434:5432"
     volumes:
       - pgdata_ms6:/var/lib/postgresql/data
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-readme} -d ms6_transactions"]
       interval: 10s
