@@ -56,6 +56,10 @@ Resources:
           ToPort: 8004
           SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
         - IpProtocol: tcp
+          FromPort: 8005
+          ToPort: 8005
+          SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+        - IpProtocol: tcp
           FromPort: 8006
           ToPort: 8006
           SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
@@ -302,6 +306,29 @@ Resources:
         - Id: !Ref AppServer2
           Port: 8004
 
+  MS5TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: "readme-ms5-tg"
+      VpcId: !Ref VpcId
+      Protocol: HTTP
+      Port: 8005
+      TargetType: instance
+      HealthCheckProtocol: HTTP
+      HealthCheckPort: "8005"
+      HealthCheckPath: "/health"
+      HealthCheckIntervalSeconds: 30
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 3
+      Matcher:
+        HttpCode: "200"
+      Targets:
+        - Id: !Ref AppServer1
+          Port: 8005
+        - Id: !Ref AppServer2
+          Port: 8005
+
   MS6TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -388,6 +415,19 @@ Resources:
       Actions:
         - Type: forward
           TargetGroupArn: !Ref MS4TargetGroup
+
+  MS5ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn: !Ref HttpListener
+      Priority: 45
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - "/api/analytics*"
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref MS5TargetGroup
 
   MS6ListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
