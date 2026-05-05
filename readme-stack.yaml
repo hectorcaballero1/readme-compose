@@ -216,7 +216,7 @@ Resources:
   ApplicationLoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Name: "readme-alb"
+      Name: "readme-alb-internal"
       Scheme: "internal"
       Type: "application"
       IpAddressType: "ipv4"
@@ -229,7 +229,6 @@ Resources:
   MS1TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: "readme-ms1-tg"
       VpcId: !Ref VpcId
       Protocol: HTTP
       Port: 8001
@@ -252,7 +251,6 @@ Resources:
   MS2TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: "readme-ms2-tg"
       VpcId: !Ref VpcId
       Protocol: HTTP
       Port: 8002
@@ -275,7 +273,6 @@ Resources:
   MS3TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: "readme-ms3-tg"
       VpcId: !Ref VpcId
       Protocol: HTTP
       Port: 8003
@@ -298,7 +295,6 @@ Resources:
   MS4TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: "readme-ms4-tg"
       VpcId: !Ref VpcId
       Protocol: HTTP
       Port: 8004
@@ -321,7 +317,6 @@ Resources:
   MS5TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: "readme-ms5-tg"
       VpcId: !Ref VpcId
       Protocol: HTTP
       Port: 8005
@@ -344,7 +339,6 @@ Resources:
   MS6TargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: "readme-ms6-tg"
       VpcId: !Ref VpcId
       Protocol: HTTP
       Port: 8006
