@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "ReadMe: 2 App Servers detras de ALB + 1 DB Server + 1 VM Ingesta"
+Description: "ReadMe: 2 App Servers detras de ALB interno + API Gateway + 1 DB Server + 1 VM Ingesta"
 
 Parameters:
   AMI:
@@ -22,16 +22,24 @@ Parameters:
 
 Resources:
 
+  # ---------- Security Groups ----------
+
+  VpcLinkSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "VPC Link: ENIs de API Gateway"
+      VpcId: !Ref VpcId
+
   LoadBalancerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: "ALB: HTTP desde internet"
+      GroupDescription: "ALB interno: HTTP solo desde VPC Link"
       VpcId: !Ref VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
-          CidrIp: "0.0.0.0/0"
+          SourceSecurityGroupId: !Ref VpcLinkSecurityGroup
 
   AppServerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -94,6 +102,8 @@ Resources:
           FromPort: 27017
           ToPort: 27017
           SourceSecurityGroupId: !Ref AppServerSecurityGroup
+
+  # ---------- EC2 Instances ----------
 
   AppServer1:
     Type: AWS::EC2::Instance
@@ -201,11 +211,13 @@ Resources:
           systemctl enable docker
           usermod -aG docker ubuntu
 
+  # ---------- ALB (interno) ----------
+
   ApplicationLoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Name: "readme-alb"
-      Scheme: "internet-facing"
+      Scheme: "internal"
       Type: "application"
       IpAddressType: "ipv4"
       SecurityGroups:
@@ -443,9 +455,70 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref MS6TargetGroup
 
+  # ---------- API Gateway HTTP API ----------
+
+  ApiVpcLink:
+    Type: AWS::ApiGatewayV2::VpcLink
+    Properties:
+      Name: "readme-vpclink"
+      SubnetIds:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+      SecurityGroupIds:
+        - !Ref VpcLinkSecurityGroup
+
+  HttpApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: "readme-api"
+      ProtocolType: HTTP
+      CorsConfiguration:
+        AllowOrigins:
+          - "*"
+        AllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+          - Authorization
+          - X-Api-Key
+          - X-Admin-Key
+        MaxAge: 86400
+
+  ApiIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref HttpApi
+      IntegrationType: HTTP_PROXY
+      IntegrationUri: !GetAtt HttpListener.ListenerArn
+      IntegrationMethod: ANY
+      ConnectionType: VPC_LINK
+      ConnectionId: !Ref ApiVpcLink
+      PayloadFormatVersion: "1.0"
+
+  DefaultRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref HttpApi
+      RouteKey: "$default"
+      Target: !Sub "integrations/${ApiIntegration}"
+
+  ApiStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref HttpApi
+      StageName: "$default"
+      AutoDeploy: true
+
 Outputs:
+  ApiGatewayUrl:
+    Description: "URL publica del API Gateway — usar en frontend (Amplify)"
+    Value: !GetAtt HttpApi.ApiEndpoint
   LoadBalancerDNS:
-    Description: "DNS del ALB — usar en API Gateway y frontend"
+    Description: "DNS del ALB interno (no accesible desde internet)"
     Value: !GetAtt ApplicationLoadBalancer.DNSName
   AppServer1PublicIP:
     Description: "IP publica App Server 1"
